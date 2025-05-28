@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        padding: 10px;
+        border-bottom: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Task manager</h2>
+    <input type="text" id="taskInput" placeholder="New Task" />
+    <button onclick="addTask()">Add Task</button>
+
+    <input
+      type="text"
+      id="searchInput"
+      onkeyup="filterTask()"
+      placeholder="Search Tasks..."
+    />
+    <ul id="taskList"></ul>
+    <script src="index.js"></script>
+  </body>
+</html>
