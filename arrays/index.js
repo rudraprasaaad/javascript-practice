@@ -171,5 +171,24 @@ const customerFullName = customers.map((customer) => {
   return customer;
 });
 
-console.log(customerFullName);
+// console.log(customerFullName);
 // console.log(newArray);
+
+const marriedCustomers = customers.filter((customer) => {
+  return customer.married;
+});
+
+const marriedCustomersExpeneses = marriedCustomers.map((customer) => {
+  return customer.expense;
+});
+
+const totalMarriedCustomersExpenses = marriedCustomers.reduce(
+  (customer, currValue) => {
+    return customer + currValue;
+  },
+  0
+);
+
+console.log(totalMarriedCustomersExpenses);
+
+// console.log(marriedCustomers);

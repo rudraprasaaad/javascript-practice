@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>dom practice</title>
+  </head>
+  <body>
+    <input
+      type="text"
+      id="search"
+      placeholder="Find..."
+      onkeyup="filterList()"
+    />
+    <br />
+    <br />
+    <input type="text" id="replace" placeholder="Replace..." />
+    <button onclick="replaceItems()">replace</button> <br />
+
+    <ul id="list">
+      <li>apple</li>
+      <li>banana</li>
+      <li>orange</li>
+      <li>apple</li>
+      <li>watermelon</li>
+    </ul>
+
+    <script src="index.js"></script>
+  </body>
+</html>
