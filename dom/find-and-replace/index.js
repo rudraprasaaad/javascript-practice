@@ -3,9 +3,7 @@ let replace = document.getElementById("replace");
 function filterList() {
   let search = document.getElementById("search");
   const items = document.querySelectorAll("ul#list li");
-  console.log(items);
   let searchValue = search.value;
-  console.log(searchValue);
   items.forEach((item) => {
     item.style.backgroundColor = item.innerText
       .toLowerCase()
