@@ -14,6 +14,6 @@ btn.addEventListener("click", () => {
 
 document.getElementById("itemList").addEventListener("click", (e) => {
   if (e.target.tagName === "LI") {
-    console.log(`You clicked on ${event.target.textContent}`);
+    console.log(`You clicked on ${e.target.textContent}`);
   }
 });
