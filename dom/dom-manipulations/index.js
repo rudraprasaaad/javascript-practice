@@ -1,5 +1,5 @@
-function addPara() {
-  const pElem = document.createElement("p");
-  pElem.innerText = "This is a text dynamically";
-  document.body.appendChild(pElem);
+function toggleInfo() {
+  const para = document.getElementById("myParagraph");
+
+  para.classList.toggle("hidden");
 }
