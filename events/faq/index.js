@@ -1,16 +1,21 @@
-const faq = document.querySelector(".faq");
+const tabs = document.querySelectorAll('[role="tab"]');
+const tabPanels = document.querySelectorAll('[role="tabpanel"]');
 
-faq.addEventListener("click", (e) => {
-  if (e.target.classList.contains("question")) {
-    const currentItem = e.target.parentElement;
-    const currentAnswer = currentItem.querySelector(".answer");
+function activateTab(index) {
+  tabs.forEach((tab, i) => {
+    const isActive = i === index;
+    tab.setAttribute("aria-selected", isActive);
+    tab.classList.toggle("active", isActive);
+    tabPanels[i].classList.toggle("active", isActive);
+  });
+}
 
-    currentAnswer.classList.toggle("show");
-  }
+tabs.forEach((tab, index) => {
+  tab.addEventListener("click", () => activateTab(index));
 });
 
-document.addEventListener("click", function () {
-  const allAnswers = document.querySelectorAll(".answer.show");
-
-  allAnswers.forEach((answer) => answer.classList.remove("show"));
+document.addEventListener("keydown", (e) => {
+  if (["1", "2", "3"].includes(e.key)) {
+    activateTab(parseInt(e.key, 10) - 1);
+  }
 });
