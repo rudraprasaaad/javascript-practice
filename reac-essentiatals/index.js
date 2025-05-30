@@ -204,4 +204,31 @@ const adventureBooks = books
 
 console.log(adventureBooks);
 
-const pagesAllBooks = books.reduce((acc, book) => acc + book.pages, 0);
+const pagesAllBooks = books.reduce((sum, book) => sum + book.pages, 0);
+
+const arr = [3, 7, 1, 9, 6];
+const sorted = arr.slice().sort((a, b) => a - b);
+sorted;
+arr;
+
+const sortedByPages = books.slice().sort((a, b) => b.pages - a.pages);
+console.log(sortedByPages);
+
+const newBook = {
+  id: 6,
+  title: "Harry Potter and the chamber of secrets",
+  author: "J. K. Rowling",
+};
+
+const bookAfterAdd = [...books, newBook];
+
+bookAfterAdd;
+
+const bookAfterDelete = bookAfterAdd.filter((book) => book.id !== 3);
+bookAfterDelete;
+
+const booksAfterUpdate = bookAfterDelete.map((book) =>
+  book.id === 1 ? { ...book, pages: 121 } : book
+);
+
+booksAfterUpdate;
