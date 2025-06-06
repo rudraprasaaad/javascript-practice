@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const tempMovieData = [
   {
@@ -50,18 +50,56 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+const KEY = "7b427ccc";
+
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
+  const [query, setQuery] = useState("");
   const [watched, setWatched] = useState(tempWatchedData);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchMovies() {
+      try {
+        setIsLoading(true);
+        const response = await fetch(
+          `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+        );
+
+        if (response.ok) {
+          throw new Error("Something went wrong while fetching movies.");
+        }
+
+        const data = await response.json();
+        if (data.response === "False") throw new Error("Movie not found");
+        setMovies(data.Search);
+        console.log(data.Search);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchMovies();
+  }, [query]);
+
+  function handleQuery(e) {
+    setQuery(e.target.value);
+  }
 
   return (
     <>
       <NavBar>
-        <Search />
+        <Search query={query} onQuery={handleQuery} />
         <NumResults movies={movies} />
       </NavBar>
       <Main>
-        <Box element={<MovieList movies={movies} />} />
+        <Box>
+          {isLoading && <Loader />}
+          {isLoading && !error && <MovieList movies={movies} />}
+          {error && <ErrorMessaage message={error} />}
+        </Box>
         <Box
           element={
             <>
@@ -73,6 +111,18 @@ export default function App() {
         <Box></Box>
       </Main>
     </>
+  );
+}
+
+function Loader() {
+  return <div className="loader">Loading....</div>;
+}
+
+function ErrorMessaage({ message }) {
+  return (
+    <p className="error">
+      <span>{message}</span>
+    </p>
   );
 }
 
@@ -97,20 +147,19 @@ function Logo() {
 function NumResults({ movies }) {
   return (
     <p className="num-results">
-      Found <strong>{movies.length}</strong> results
+      Found <strong>{movies?.length || 0}</strong> results
     </p>
   );
 }
 
-function Search() {
-  const [query, setQuery] = useState("");
+function Search({ query, onQuery }) {
   return (
     <input
       className="search"
       type="text"
       placeholder="Search movies..."
       value={query}
-      onChange={(e) => setQuery(e.target.value)}
+      onChange={onQuery}
     />
   );
 }
