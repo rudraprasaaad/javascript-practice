@@ -1,12 +1,14 @@
 import { useEffect, useReducer } from "react";
-import Header from "./Header";
-import MainContainer from "./MainContainer";
-import Loader from "./Loader";
-import StartScreen from "./StartScreen";
+import Header from "./components/Header";
+import MainContainer from "./components/MainContainer";
+import Loader from "./components/Loader";
+import StartScreen from "./components/StartScreen";
+import Question from "./components/Question";
 
 const initialState = {
   questions: [],
   status: "loading...",
+  index: 0,
 };
 
 function reducer(state, action) {
@@ -19,13 +21,20 @@ function reducer(state, action) {
         ...state,
         status: "error",
       };
+
+    case "start":
+      return { ...state, status: "active" };
+
     default:
       throw new Error("Action unknown");
   }
 }
 
 function App() {
-  const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status, index }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   const numQuestions = questions.length;
 
@@ -43,7 +52,10 @@ function App() {
       <MainContainer>
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
-        {status === "ready" && <StartScreen numQuestions={numQuestions} />}
+        {status === "ready" && (
+          <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
+        )}
+        {status === "active" && <Question question={questions[index]} />}
       </MainContainer>
     </div>
   );
