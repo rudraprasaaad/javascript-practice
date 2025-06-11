@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { PostProvider, PostContext } from "./PostContext";
 import { faker } from "@faker-js/faker";
+import { usePosts } from "./use-posts";
 
 function createRandomPost() {
   return {
@@ -41,7 +42,7 @@ function App() {
 }
 
 function Header() {
-  const { onClearPosts } = useContext(PostContext);
+  const { onClearPosts } = usePosts();
 
   return (
     <header>
@@ -58,7 +59,7 @@ function Header() {
 }
 
 function SearchPosts() {
-  const { searchQuery, setSearchQuery } = useContext(PostContext);
+  const { searchQuery, setSearchQuery } = usePosts();
 
   return (
     <input
@@ -70,13 +71,13 @@ function SearchPosts() {
 }
 
 function Results() {
-  const { posts } = useContext(PostContext);
+  const { posts } = usePosts();
 
   return <p>🚀 {posts.length} atomic posts found</p>;
 }
 
 function Main() {
-  const { posts, onAddPost } = useContext(PostContext);
+  const { posts, onAddPost } = usePosts();
   return (
     <main>
       <FormAddPost onAddPost={onAddPost} />
