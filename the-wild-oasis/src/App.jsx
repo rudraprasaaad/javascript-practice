@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import GlobalStyles from "./styles/GlobalStyles";
 
 const H1 = styled.h1`
   font-size: 30px;
@@ -29,13 +30,16 @@ const StyledApp = styled.div`
 
 function App() {
   return (
-    <StyledApp>
-      <div>hello world</div>
-      <H1>Rudraprasad Gouda</H1>
-      <Button>Check In</Button>
+    <>
+      <GlobalStyles />
+      <StyledApp>
+        <div>hello world</div>
+        <H1>Rudraprasad Gouda</H1>
+        <Button>Check In</Button>
 
-      <Input type="number" placeholder="Number of guests" />
-    </StyledApp>
+        <Input type="number" placeholder="Number of guests" />
+      </StyledApp>
+    </>
   );
 }
 
