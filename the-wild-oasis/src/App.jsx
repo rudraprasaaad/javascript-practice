@@ -22,15 +22,20 @@ const Input = styled.input`
   padding: 0.8rem 1.2rem;
 `;
 
+const StyledApp = styled.div`
+  background-color: orangered;
+  padding: 20px;
+`;
+
 function App() {
   return (
-    <>
+    <StyledApp>
       <div>hello world</div>
       <H1>Rudraprasad Gouda</H1>
       <Button>Check In</Button>
 
       <Input type="number" placeholder="Number of guests" />
-    </>
+    </StyledApp>
   );
 }
 
